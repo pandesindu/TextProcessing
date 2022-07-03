@@ -8,7 +8,6 @@ use Sastrawi\Stemmer\StemmerFactory;
 
 class ProsesController extends Controller
 {
-
     public function index()
     {
         // reading text file 
@@ -20,45 +19,30 @@ class ProsesController extends Controller
         $token = explode(' ', $stringClean);
         // dd($token);
 
-        // filtering using stopword
+        // filtering using stopword and remove stopword
         $stopword = Storage::get('public/stopwords-id.txt');
         $stopword = explode("\n", $stopword);
-
         $filtered = array_diff($token, $stopword);
         // dd($filtered);
 
-        // counting frequency
-        $count = array_count_values($filtered);
-        // dd($count);
 
-        // stemming filtered words using sastrawi
-        $stemmerFactory = new StemmerFactory();
-        $stemmer = $stemmerFactory->createStemmer();
-        $stemmed = array_map(function ($item) use ($stemmer) {
-            return $stemmer->stem($item);
-        }, $filtered);
+        // stemming filtered words using sastrawi 
+        $stemmer = new \Sastrawi\Stemmer\StemmerFactory();
+        $stemmer = $stemmer->createStemmer();
+        $stemmed = array();
+        foreach ($filtered as $word) {
+            $stemmed[] = $stemmer->stem($word);
+        }
+
         dd($stemmed);
+        // term frequency
+        $termFreq = array_count_values($stemmed);
+        // dd($termFreq);
 
-
-
-
-
-
-
-
-
-
-        // //weighting using TF-IDF
-        // $tf = array();
-        // $idf = array();
-        // $tfidf = array();
-        // $total = count($filtered);
-        // foreach ($stemmed as $key => $value) {
-        //     $tf[$key] = $count[$value] / $total;
-        //     $idf[$value] = log($total / $count[$value]);
-        //     $tfidf[$key] = $tf[$key] * $idf[$value];
-        // }
-        // dd($tfidf);
-
+        //inverse document frequency
+        $idf = array();
+        foreach ($termFreq as $term => $freq) {
+            $idf[$term] = abs(log(1 / $freq));
+        }
     }
 }
