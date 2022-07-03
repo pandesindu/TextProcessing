@@ -38,6 +38,23 @@ class ProsesController extends Controller
 
     }
 
+    private function cos_sim($tfidf)
+    {
+        $sum = 0;
+        $doc1 = 0;
+        $doc2 = 0;
+        foreach ($tfidf as  $key=>$value){
+            $sum += $value[0] * $value[1];
+            $doc1 += $value[0] ^ 2;
+            $doc2 += $value[1] ^ 2;
+        }
+        // dd($tfidf, $sum, $doc1, $doc2);
+
+        $den = sqrt($doc1) * sqrt($doc2);
+
+        return $sum / $den;
+    }
+
     public function index()
     {
         $stemmed1 = $this->stemming('public/uploads/file1.txt');
@@ -81,12 +98,15 @@ class ProsesController extends Controller
                 $doc++;
             }
             
-            $idf[$key] = log(2/$doc);
+            $idf[$key] = log10(2/$doc);
             $tfidf[$key] = [$tf[$key][0] * $idf[$key], $tf[$key][1] * $idf[$key]] ;
 
 
         }
-        dd($tfidf);
+        dd($idf);
+
+        $cosSim = $this->cos_sim($tfidf);
+        // dd($cosSim);
 
 
     }
