@@ -55,6 +55,16 @@ class ProsesController extends Controller
         return $sum / $den;
     }
 
+    private function  euclidDistance($tf)
+    {
+        $sum = 0;
+        foreach($tf as  $key=>$value)
+        {
+            $sum += ($value[0] - $value[1])^2;
+        }
+        return sqrt($sum);
+    }
+
     public function index()
     {
         $stemmed1 = $this->stemming('public/uploads/file1.txt');
@@ -103,10 +113,11 @@ class ProsesController extends Controller
 
 
         }
-        dd($idf);
+        // dd($idf);
 
         $cosSim = $this->cos_sim($tfidf);
-        // dd($cosSim);
+        $euDist = $this->euclidDistance($tf);
+        dd($euDist);
 
 
     }
