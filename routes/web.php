@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\ProsesController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,3 +20,7 @@ Route::get('/', function () {
 });
 
 Route::get('/proses', [ProsesController::class, 'index']);
+
+//upload file
+Route::get('/halamanupload', [FileUploadController::class, 'index']);
+Route::post('/upload', [FileUploadController::class, 'upload']);
