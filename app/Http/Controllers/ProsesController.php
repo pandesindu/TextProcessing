@@ -13,17 +13,23 @@ class ProsesController extends Controller
         // reading text file 
         $text = Storage::get('public/file.txt');
         // dd($text);
+        // stemming filtered words using sastrawi
+        
         $lowStr = strtolower($text);
         $stringClean = preg_replace('/[^a-z0-9]+/i', ' ', $lowStr);
         // text tokenization
-        $token = explode(' ', $stringClean);
+        $stemmerFactory = new StemmerFactory();
+        $stemmer = $stemmerFactory->createStemmer();
+   
+        $stemmed   = $stemmer->stem($stringClean);
+        $token = explode(' ', $stemmed);
         // dd($token);
 
         // filtering using stopword and remove stopword
         $stopword = Storage::get('public/stopwords-id.txt');
         $stopword = explode("\n", $stopword);
         $filtered = array_diff($token, $stopword);
-        // dd($filtered);
+        dd($filtered);
 
 
         // stemming filtered words using sastrawi 
