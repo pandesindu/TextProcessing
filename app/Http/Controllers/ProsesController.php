@@ -46,38 +46,48 @@ class ProsesController extends Controller
         $token1 = $this->tokenization('public/uploads/file1.txt');
         $token2 = $this->tokenization('public/uploads/file2.txt');
 
-        $filtered1 = $this->removeStopword($token1);
-        $filtered2 = $this->removeStopword($token2);
+        $filtered1 = $this->removeStopword($stemmed2);
+        $filtered2 = $this->removeStopword($stemmed1);
 
 
-        // stemming filtered words using sastrawi 
-        // $stemmer = new \Sastrawi\Stemmer\StemmerFactory();
-        // $stemmer = $stemmer->createStemmer();
-        // $stemmed = array();
-        // foreach ($filtered as $word) {
-        //     $stemmed[] = $stemmer->stem($word);
-        // }
-
-        // dd($stemmed);
-        // term frequency
         $termList  = array_unique(array_merge($filtered1, $filtered2));
 
         $termFreq1 = array_count_values($filtered1);
         $termFreq2 = array_count_values($filtered2);
         
         $termFreq= array();
-        foreach ($termList as $term) {
+        foreach ($termList as $term) 
+        {
             $a = (array_key_exists($term, $termFreq1)) ? $termFreq1[$term] : 0;
             $b = (array_key_exists($term, $termFreq2)) ? $termFreq2[$term] : 0;
             $termFreq[ $term] = [$a, $b];
         }
-        dd($termFreq);
-        // dd($termFreq1["thompson"]);
         
-        //inverse document frequency
-        // $idf = array();
-        // foreach ($termFreq as $term => $freq) {
-        //     $idf[$term] = abs(log(1 / $freq));
-        // }
+        $tf =array();
+        $idf = array();
+        $tfidf = array();
+
+        foreach($termFreq as  $key=>$value)
+        {
+            $a = ($value[0]) ? 1 + log10($value[0]) : 0;
+            $b = ($value[1]) ? 1 + log10($value[1]) : 0;
+            $tf[$key] =  [$a, $b];
+            
+            $doc = 0;
+            if($value[0]){
+                $doc++;
+            }
+            if($value[1]){
+                $doc++;
+            }
+            
+            $idf[$key] = log(2/$doc);
+            $tfidf[$key] = [$tf[$key][0] * $idf[$key], $tf[$key][1] * $idf[$key]] ;
+
+
+        }
+        dd($tfidf);
+
+
     }
 }
