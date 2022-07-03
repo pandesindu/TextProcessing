@@ -120,5 +120,10 @@ class ProsesController extends Controller
         dd($euDist);
 
 
+        // dd($cosSim);
+        // return data as a array 
+        // dd($tf);
+        return view('FormInput.showData', compact('tfidf','tf','idf','termList'));
     }
+
 }
