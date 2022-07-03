@@ -19,6 +19,7 @@ class FileUploadController extends Controller
             'file2' => 'required|file|mimes:txt|max:1024',
         ]);
 
+        // dd($request->file1, $request->file2);
         // dd($request->all());
         //store the file...
         if($request->file('file1')->isValid() && $request->file('file2')->isValid()) {

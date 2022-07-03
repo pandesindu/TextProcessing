@@ -55,6 +55,8 @@ class ProsesController extends Controller
         return $sum / $den;
     }
 
+   
+
     public function index()
     {
         $stemmed1 = $this->stemming('public/uploads/file1.txt');
@@ -103,11 +105,13 @@ class ProsesController extends Controller
 
 
         }
-        dd($idf);
+        // dd($idf);
 
         $cosSim = $this->cos_sim($tfidf);
         // dd($cosSim);
-
-
+        // return data as a array 
+        // dd($tf);
+        return view('FormInput.showData', compact('tfidf','tf','idf','termList'));
     }
+
 }
