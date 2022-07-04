@@ -23,7 +23,7 @@
                 <!-- For demo purpose -->
                 <div class="row mb-5 text-center text-white">
                 <div class="col-lg-10 mx-auto">
-                    <h1 class="display-4">File upload button </h1>
+                    <h1 class="display-4">File Upload </h1>
                     <p class="lead"></p>
                 </div>
                 </div>

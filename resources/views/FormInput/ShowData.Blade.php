@@ -72,12 +72,12 @@
                   </tbody>
                   <tfoot>
                   <tr>
-                  <th>Kata</th>
-                    <th>TF D1</th>
-                    <th>TF D2</th>
-                    <th>IDF</th>
-                    <th>TF-IDF D1</th>
-                    <th>TF-IDF D1</th>
+                  <th></th>
+                    <th></th>
+                    <th>Cosine Similarity :</th>
+                    <th>{{$cosineSimilarity}}</th>
+                    <th>Euclidean Distance</th>
+                    <th>{{$euDist}}</th>
     
                   </tr>
                   </tfoot>

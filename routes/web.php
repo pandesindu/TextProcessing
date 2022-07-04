@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('Beranda.beranda');
+    return view('HalamanUpload');
 });
 
 Route::get('/proses', [ProsesController::class, 'index']);
