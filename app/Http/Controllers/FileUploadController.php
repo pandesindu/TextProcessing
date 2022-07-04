@@ -19,6 +19,7 @@ class FileUploadController extends Controller
             'file2' => 'required|file|mimes:txt|max:1024',
         ]);
 
+
         // dd($request->file1, $request->file2);
         // dd($request->all());
         //store the file...
@@ -36,7 +37,7 @@ class FileUploadController extends Controller
         // $uploadfile->save();
 
         // redirect
-        return redirect('/halamanupload');
+        return redirect('/proses');
 
     }
 }

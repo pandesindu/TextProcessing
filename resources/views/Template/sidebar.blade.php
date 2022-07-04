@@ -29,8 +29,15 @@
               </li>
               <li class="nav-item">
                 <a href="/halamanupload" class="nav-link">
-                  <i class="nav-icon fas fa-edit"></i>
-                  <p>Data Processing</p>
+                  <i class="nav-icon fas fa-upload"></i>
+                  <p>UPLOAD FILE</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="/proses" class="nav-link">
+                  <i class="nav-icon fas fa-search"></i>
+                  <p>Hasil</p>
                 </a>
               </li>
         </ul>
